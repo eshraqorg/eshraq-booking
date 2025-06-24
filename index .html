@@ -125,11 +125,9 @@
       const phone = document.getElementById("phone").value;
       const service = document.getElementById("service").value;
 
-      // WhatsApp message
       const whatsappMessage = `تم استلام حجز جديد من ${name} لخدمة "${service}" في ${date} الساعة ${time}.`;
       window.open(`https://wa.me/905076206183?text=${encodeURIComponent(whatsappMessage)}`, "_blank");
 
-      // Google Calendar link
       const startDateTime = new Date(`${date}T${time}`);
       const endDateTime = new Date(startDateTime.getTime() + 60 * 60 * 1000);
       const formatDate = dt => dt.toISOString().replace(/-|:|\.\d+/g, "");
@@ -137,8 +135,13 @@
       document.getElementById("calendarLink").href = calendarLink;
       document.getElementById("calendarLink").style.display = "block";
 
-      e.target.submit(); // send data to Google Sheets
+      e.target.submit();
     }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('date').setAttribute('min', today);
+    });
   </script>
 </body>
 </html>
