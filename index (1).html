@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>نموذج حجز إشراق</title>
+  <style>
+    body {
+      background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+    button {
+      background-color: #27ae60;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #219150;
+    }
+    .logo {
+      display: block;
+      margin: 0 auto 20px auto;
+      max-width: 120px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <img src="https://eshraqteam.wordpress.com/wp-content/uploads/2025/05/cropped-cropped-ecd10-1.png" alt="شعار إشراق" class="logo">
+    <h2>نموذج حجز جلسة - إشراق</h2>
+    <form name="eshraqBooking" onsubmit="handleSubmit(event)">
+      <label for="name">الاسم الكامل</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="phone">رقم الهاتف</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="email">البريد الإلكتروني (اختياري)</label>
+      <input type="email" id="email" name="email">
+
+      <label for="service">اختر الخدمة</label>
+      <select id="service" name="service" onchange="updateDescription()" required>
+        <option value="">-- اختر --</option>
+        <option value="استشارة تربوية للأطفال">استشارة تربوية للأطفال</option>
+        <option value="جلسة دعم نفسي للأطفال">جلسة دعم نفسي للأطفال</option>
+        <option value="استشارة أسرية لحل المشكلات العائلية">استشارة أسرية لحل المشكلات العائلية</option>
+        <option value="تدريب للمعلمين على التعامل مع الطلاب">تدريب للمعلمين على التعامل مع الطلاب</option>
+        <option value="تقييم سلوكي أولي للطفل">تقييم سلوكي أولي للطفل</option>
+      </select>
+
+      <label for="description">وصف الخدمة</label>
+      <textarea id="description" rows="3" disabled></textarea>
+
+      <label for="date">تاريخ الحجز</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="time">وقت الحجز</label>
+      <input type="time" id="time" name="time" required>
+
+      <label for="notes">ملاحظاتك (تفاصيل عن الطفل أو الخدمة المطلوبة)</label>
+      <textarea id="notes" name="notes" rows="4" required></textarea>
+
+      <button type="submit">📩 إرسال الحجز</button>
+      <button type="button" onclick="addToCalendar()">📅 أضف إلى تقويم Google</button>
+    </form>
+  </div>
+
+  <script>
+    const serviceDescriptions = {
+      "استشارة تربوية للأطفال": "جلسة إرشاد تربوي مع مختص لمناقشة التحديات التعليمية أو السلوكية التي يواجهها الطفل، وتقديم خطة دعم مخصصة للأسرة.",
+      "جلسة دعم نفسي للأطفال": "جلسة فردية تهدف إلى مساعدة الطفل على التعبير عن مشاعره وتعزيز مهاراته النفسية والاجتماعية في بيئة آمنة وداعمة.",
+      "استشارة أسرية لحل المشكلات العائلية": "جلسة مع أخصائي علاقات أسرية لمناقشة التوترات أو الخلافات داخل الأسرة والعمل على حلول عملية تساعد في بناء تواصل صحي ومستقر.",
+      "تدريب للمعلمين على التعامل مع الطلاب": "ورشة افتراضية فردية أو جماعية تهدف إلى تأهيل المعلمين في الجوانب النفسية والتربوية لدعم الطلاب داخل الصف.",
+      "تقييم سلوكي أولي للطفل": "تقييم أولي شامل لسلوك الطفل بناءً على مقابلة الأسرة وتحليل أنماط التفاعل، لتحديد ما إذا كان يحتاج لتدخل نفسي أو تربوي."
+    };
+
+    function updateDescription() {
+      const selected = document.getElementById('service').value;
+      document.getElementById('description').value = serviceDescriptions[selected] || '';
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert("✅ تم إرسال طلب الحجز. سيتم التواصل معك عبر واتساب.");
+      window.open("https://wa.me/905076206183?text=تم إرسال طلب حجز جديد عبر نموذج إشراق. سنراجع التفاصيل ونتواصل معك قريبًا.", "_blank");
+    }
+
+    function addToCalendar() {
+      const name = document.getElementById('name').value;
+      const service = document.getElementById('service').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+
+      const startDateTime = new Date(`${date}T${time}`);
+      const endDateTime = new Date(startDateTime.getTime() + 60 * 60000);
+      const formatDate = d => d.toISOString().replace(/-|:|\.\d+/g, '');
+
+      const calendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(service)} - إشراق&dates=${formatDate(startDateTime)}/${formatDate(endDateTime)}&details=تم حجز الخدمة من خلال نموذج إشراق من قبل: ${encodeURIComponent(name)}&location=Online&sf=true&output=xml`;
+      window.open(calendarUrl, "_blank");
+    }
+  </script>
+</body>
+</html>
